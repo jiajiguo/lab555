@@ -4,12 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:text="I want to watch the game Notre Dame vs Duke"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:textSize="30sp"
-        />
+        android:layout_height="match_parent"
+        android:id = "@+id/scheduleListView"/>
 </LinearLayout>
