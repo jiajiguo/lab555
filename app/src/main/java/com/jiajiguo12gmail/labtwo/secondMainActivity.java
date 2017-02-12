@@ -22,7 +22,7 @@ public class secondMainActivity extends AppCompatActivity {
 
         //String[] str = {"aaa","bbb","ccc","ddd","eee","fff","ggg","hhh"};
         //ListAdapter scheduleAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, str);
-        //github test testtest
+        //github test test
         List<String[]> lst = new ArrayList<String[]>();
         ArrayList information = new ArrayList();
         information.add(new String[] {"floridastatelogo","Florida State", "Feb 11"});
