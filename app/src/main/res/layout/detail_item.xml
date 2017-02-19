@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:text="3:0"
+        android:layout_width="50dp"
+        android:layout_marginLeft="134dp"
+        android:layout_height="50dp"
+        android:id="@+id/gameScore"
+        android:textStyle="italic"
+        android:textColor="#011b7b"
+        android:layout_above="@+id/gameLocation"
+        android:layout_toRightOf="@+id/detailLogo"
+        android:layout_marginStart="134dp"
+        android:layout_marginBottom="11dp" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/fightinglogo"
+        android:id="@+id/detailLogo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginStart="55dp" />
+
+    <TextView
+        android:text="United States"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/gameLocation"
+        android:textSize="17dp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+
+
+        android:layout_marginTop="53dp"
+        android:layout_below="@+id/detailLogo"
+        android:layout_alignRight="@+id/detailLogo"
+        android:layout_alignEnd="@+id/detailLogo" />
+
+</RelativeLayout>
