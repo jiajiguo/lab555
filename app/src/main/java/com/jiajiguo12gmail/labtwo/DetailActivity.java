@@ -30,6 +30,7 @@ public class DetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         TextView detailText1 = (TextView) findViewById(R.id.detailText1);
+        TextView stadiumLocation = (TextView) findViewById(R.id.stadiumLocation);
         ImageView detailImage1 = (ImageView) findViewById(R.id.detailImage1);
         ImageView detailImage2 = (ImageView) findViewById(R.id.detailImage2);
 
