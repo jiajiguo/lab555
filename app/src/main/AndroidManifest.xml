@@ -16,6 +16,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".secondMainActivity"></activity>
+        <activity android:name=".DetailActivity"></activity>
+        <uses-permission android:name="android.permission.CAMERA" />
+        <uses-feature android:name="android.hardware.camera" />
+        <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     </application>
+
+
 
 </manifest>

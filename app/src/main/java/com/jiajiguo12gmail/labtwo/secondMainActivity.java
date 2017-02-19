@@ -3,14 +3,19 @@ package com.jiajiguo12gmail.labtwo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import java.util.*;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 
 
-
-public class secondMainActivity extends AppCompatActivity {
+public class secondMainActivity extends Activity {
 
 
 
@@ -20,25 +25,42 @@ public class secondMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_main);
 
-        //String[] str = {"aaa","bbb","ccc","ddd","eee","fff","ggg","hhh"};
-        //ListAdapter scheduleAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, str);
-        //github test test 1234
-        List<String[]> lst = new ArrayList<String[]>();
-        ArrayList information = new ArrayList();
-        information.add(new String[] {"floridastatelogo","Florida State", "Feb 11"});
-        information.add(new String[] {"bostoncollegelogo","Boston College", "Feb 14"});
-        information.add(new String[] {"northcarolinastatelogo","North Carolina State", "Feb 18"});
-        information.add(new String[] {"georgiatechlogo","Georgia Tech", "Feb 26"});
-        information.add(new String[] {"bostoncollegelogo","Boston College", "March 1"});
-        information.add(new String[] {"louisvillelogo","Louisville", "March 4"});
-        information.add(new String[] {"medallogo","ACC Tournament", "March 7"});
-        information.add(new String[] {"medallogo","ACC Tournament", "March 16"});
 
 
 
+
+
+
+        final ArrayList<String[]> information = new ArrayList();
+        information.add(new String[] {"floridastatelogo","Florida State", "Feb 11","Saturday，February 11th, 18:00"});
+        information.add(new String[] {"bostoncollegelogo","Bostoncollege", "Feb 14","Tuesday, February 14th, 19:00"});
 
         ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this, information);
-        ListView scheduleListView = (ListView) findViewById(R.id.scheduleListView);
+        final ListView scheduleListView = (ListView) findViewById(R.id.scheduleListView);
         scheduleListView.setAdapter(scheduleAdapter);
+
+
+        AdapterView.OnItemClickListener clickListener = new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                Intent intent = new Intent(secondMainActivity.this, DetailActivity.class);
+                String[] aa= information.get(position);
+                intent.putExtra("team", aa);
+                startActivity(intent);
+
+
+
+
+            }
+
+        };
+
+        scheduleListView.setOnItemClickListener(clickListener);
+
+
+
+
+
     }
 }

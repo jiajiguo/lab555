@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Schedule</string>
+    <dimen name="length1">100dp</dimen>
+    <dimen name="regtextsize">16dp</dimen>
 </resources>
