@@ -7,30 +7,12 @@
 
 
     <Button
-        android:text="Button"
+        android:text="Camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnOk"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="@dimen/length1"
-        android:layout_height="@dimen/length1"
-        app:srcCompat="@drawable/fightinglogo"
-        android:id="@+id/detailImage2"
-        android:layout_above="@+id/btnOk"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:layout_width="@dimen/length1"
-        android:layout_height="@dimen/length1"
-        app:srcCompat="@mipmap/inter"
-        android:id="@+id/detailImage1"
-        android:layout_above="@+id/btnOk"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <TextView
         android:text="detailText1"
@@ -51,5 +33,82 @@
         android:layout_below="@+id/detailText1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="@dimen/length1"
+        android:layout_height="@dimen/length1"
+        app:srcCompat="@mipmap/inter"
+        android:id="@+id/detailImage1"
+        android:layout_below="@+id/stadiumLocation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="@dimen/length1"
+        android:layout_height="@dimen/length1"
+        app:srcCompat="@drawable/fightinglogo"
+        android:id="@+id/detailImage2"
+        android:layout_below="@+id/stadiumLocation"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="opponentTeam"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/opponentTeam"
+        android:textStyle="bold"
+        android:layout_below="@+id/detailImage1"
+        />
+
+    <TextView
+        android:text="Fighting Irish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/textView3"
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/opponentTeam"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="opponentRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/regtextsize"
+        android:id="@+id/opponentRecord"
+        android:layout_below="@+id/opponentTeam"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="irishRecord"
+        android:textSize="@dimen/regtextsize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/irishRecord"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="gameScore"
+        android:textSize="@dimen/largetextsize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gameScore"
+        android:layout_above="@+id/opponentTeam"
+        android:layout_centerHorizontal="true"
+         />
+
+    <TextView
+        android:text="gameStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/opponentRecord"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/gameStatus" />
 
 </RelativeLayout>
