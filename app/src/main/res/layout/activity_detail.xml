@@ -14,7 +14,10 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
+
+
+
+<TextView
         android:text="detailText1"
         android:layout_width="wrap_content"
         android:textSize="@dimen/regtextsize"

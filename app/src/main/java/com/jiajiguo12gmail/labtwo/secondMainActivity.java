@@ -20,6 +20,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -33,6 +34,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
+
 import java.io.Serializable;
 
 
@@ -42,6 +45,7 @@ public class secondMainActivity extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
     //   ArrayList <String[]> information = new ArrayList();
     ArrayList<Team> teams = new ArrayList<>();
+    ArrayList<String[]> txtteams;
 
     //2017 03 17
 
@@ -54,6 +58,25 @@ public class secondMainActivity extends AppCompatActivity {
         // Locate MenuItem with ShareActionProvider
         MenuItem item = menu.findItem(R.id.share);
         // Fetch and store ShareActionProvider
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+//    Image image = new Image(file.toURI().toString());
+//    ImageView.setImage(image);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int res_id = item.getItemId();
+
+
+        if (res_id == R.id.share) {
+// code for sharing the schedule
+            ShareActionProvider miShare = (ShareActionProvider) MenuItemCompat.getActionProvider(item); //share via text
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra("android.content.Intent.EXTRA_SUBJECT", "BasketBall Matches");
+            shareIntent.putExtra("android.content.Intent.EXTRA_TEXT",gameSchedule(txtteams) );
+            startActivity(Intent.createChooser(shareIntent,"Share via"));
 
 //        Intent picMessageIntent = new Intent(android.content.Intent.ACTION_SEND);    //this is method to share fotos
 //        picMessageIntent.setType("image/jpeg");
@@ -68,25 +91,6 @@ public class secondMainActivity extends AppCompatActivity {
 //        intent2.putExtra(Intent.EXTRA_SUBJECT, "Email Subject");
 //        intent2.putExtra(Intent.EXTRA_TEXT, "Your text here" );
 //        startActivity(intent2);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-//    Image image = new Image(file.toURI().toString());
-//    ImageView.setImage(image);
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int res_id = item.getItemId();
-        registerForContextMenu((View) findViewById(R.id.settings));
-
-        if (res_id == R.id.share) {
-// code for sharing the schedule
-            ShareActionProvider miShare = (ShareActionProvider) MenuItemCompat.getActionProvider(item); //share via text
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra("android.content.Intent.EXTRA_SUBJECT", "BasketBall Matches");
-            shareIntent.putExtra("android.content.Intent.EXTRA_TEXT","testtexthere" );
-            startActivity(Intent.createChooser(shareIntent,"Share via"));
 
         } else if (res_id == R.id.sync) {
 
@@ -126,20 +130,28 @@ public class secondMainActivity extends AppCompatActivity {
     public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 
         super.onCreateContextMenu(menu, v, menuInfo);
+       // menu.setHeaderTitle("Context Menu");
+       // menu.add(0, v.getId(), 0, "Action 1");
+      //  menu.add(0, v.getId(), 0, "Action 2");
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.floating_contextual_menu, menu);// here write code to inflate floating_contextual_menu xml file
     }
 
+
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        int item_id = item.getItemId();
-        if (item_id == R.id.women) {
-        // to be implemented later
-        }
-        if (item_id == R.id.femme) {
+        if(item.getTitle()=="Action 1"){function1(item.getItemId());}
+        else if(item.getTitle()=="Action 2"){function2(item.getItemId());}
+        else {return false;}
+        return true;
+    }
 
-        }
-        return false;
+    public void function1(int id){
+        Toast.makeText(this, "function 1 called", Toast.LENGTH_SHORT).show();
+    }
+    public void function2(int id){
+        Toast.makeText(this, "function 2 called", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -154,7 +166,7 @@ public class secondMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second_main);
 
 
-
+        registerForContextMenu((View) findViewById(R.id.button8));
 
 
       //  2017 03 17
@@ -165,7 +177,7 @@ public class secondMainActivity extends AppCompatActivity {
 
 
 
-        ArrayList<String[]> txtteams;
+
         MyCsvFileReader myCsvFileReader = new MyCsvFileReader(this);
         txtteams = myCsvFileReader.readCsvFile(R.raw.schedule);
 
@@ -230,15 +242,15 @@ public class secondMainActivity extends AppCompatActivity {
 
 
     @NonNull
-    private String gameSchedule(ArrayList<String[]> txtteams2) {
-
+    private String gameSchedule(ArrayList<String[]> txtteams) {
 
         // Create a new StringBuilder.
         StringBuilder gameSchedule = new StringBuilder();
         // Loop and append values.
-        for (int i = 0; i < 2; i++) {
-            gameSchedule.append(txtteams2.get(i)[1]);
-            gameSchedule.append(txtteams2.get(i)[2]);
+        for (int i = 0; i < 3; i++) {
+            gameSchedule.append(txtteams.get(i)[1]);
+            gameSchedule.append(txtteams.get(i)[2]);
+            gameSchedule.append(txtteams.get(i)[3]);
         }
 
 
