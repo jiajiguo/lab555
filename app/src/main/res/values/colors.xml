@@ -3,4 +3,15 @@
     <color name="colorPrimary">#515151</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#ff4043</color>
+    <color name="textColorSecondary">#7700ff</color>
+    <color name="textPrimary">#0044ff</color>
+    <color name="navigationBarColor">#00ddff</color>
+    <color name="windowBackground">#0dff00</color>
+    <color name="colorControlNormal">#ffe600</color>
+    <color name="colorControlActivated">#ffaa00</color>
+    <color name="elevation">#ff0900</color>
+    <color name="colorPrimaryMaterial">#7700ff</color>
+    <color name="white">#ffffff</color>
+
+
 </resources>

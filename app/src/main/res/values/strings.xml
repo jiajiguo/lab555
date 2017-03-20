@@ -3,4 +3,8 @@
     <dimen name="length1">100dp</dimen>
     <dimen name="regtextsize">16dp</dimen>
     <dimen name="largetextsize">30dp</dimen>
+    <string name = "Share">Share</string>
+    <string name = "Sync">Sync</string>
+    <string name = "Settings">Settings</string>
+
 </resources>

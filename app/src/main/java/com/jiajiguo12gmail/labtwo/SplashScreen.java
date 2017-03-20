@@ -13,7 +13,11 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setTheme(R.style.TestTheme);
         setContentView(R.layout.activity_second_splash);
+
+
         Thread myThread = new Thread(){
             @Override
             public void run() {

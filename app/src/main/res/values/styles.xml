@@ -1,11 +1,46 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="MyMaterialTheme" parent="SuperMaterialTheme">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SuperMaterialTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/windowBackground</item>
+    <item name="colorPrimaryDark">@color/navigationBarColor</item>
+    <item name="colorAccent">@color/colorPrimaryMaterial</item>
+</style>
+
+
+    <style name="TestTheme" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#0419fd</item>
+        <item name="colorPrimaryDark">#ff0202</item>
+        <item name="colorAccent">#d900ff</item>
+    </style>
+
+    <style name="TestTheme2" parent="TestTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#2efd04</item>
+        <item name="colorPrimaryDark">#2efd04</item>
+        <item name="colorAccent">#2efd04</item>
+    </style>
+
+    <style name="MyToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <style name="MyPopupTheme" parent="ThemeOverlay.AppCompat.Light">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
 </resources>

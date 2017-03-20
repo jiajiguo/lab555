@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/share"
+        android:icon="@drawable/ic_share"
+        android:orderInCategory="100"
+        android:title="@string/Share"
+        app:showAsAction="always"/>
+
+
+    <item android:id="@+id/sync"
+        android:icon="@drawable/ic_sync"
+        android:orderInCategory="100"
+        android:title="@string/Sync"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/settings"
+        android:icon="@drawable/ic_settings"
+        android:orderInCategory="100"
+        android:title="@string/Settings"
+        app:showAsAction="always"/>
+
+</menu>

@@ -60,7 +60,10 @@ public class DetailActivity extends AppCompatActivity {
         if (shouldAskPermissions()) {
             askPermissions();
         }
+        setTheme(R.style.TestTheme2);
         setContentView(R.layout.activity_detail);
+
+
         TextView detailText1 = (TextView) findViewById(R.id.detailText1);
         TextView stadiumLocation = (TextView) findViewById(R.id.stadiumLocation);
         TextView opponentTeam = (TextView) findViewById(R.id.opponentTeam);
