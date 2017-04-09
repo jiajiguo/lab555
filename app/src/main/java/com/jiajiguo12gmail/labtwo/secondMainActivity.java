@@ -17,10 +17,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -34,6 +36,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
@@ -41,8 +44,44 @@ import java.io.Serializable;
 
 public class secondMainActivity extends AppCompatActivity {
 
+    String string1 = "freeenergy";
+    Button buttontogallery;
+    int num = 1;   //please do not
+    TextView opponent_name_show;
+    EditText opponent_name_edit;
+
+    DatabaseHandler db ;
+
+//    public void fn_insert(View view) {
+//        String opponentname = String.valueOf(opponent_name_edit.getText());
+//        int gameid = num++;
+//        db.insertData(new GameContent(gameid, opponentname,"3456"));
+//        opponent_name_edit.setText("");
+//        opponent_name_show.setText(db.getString());
+//        String1 = db.getString();
+//    }
+
+    public void fn_insert(View view) {
+        String opponentname = String.valueOf(opponent_name_edit.getText());
+        int gameid = num++;
+        db.addGameContent(new GameContent(gameid, opponentname,"3456"));
+        opponent_name_edit.setText("");
+        opponent_name_show.setText(db.getString());
+        string1 = opponentname;
+
+        Intent intent = new Intent(secondMainActivity.this, secondMainActivity.class);
+
+        intent.putExtra("string1", string1);
+        //// TODO: 2017-04-08
+//
+        finish();
+        startActivity(intent);
+    }
+
 
     private CoordinatorLayout coordinatorLayout;
+    public GameContent testContent;
+
     //   ArrayList <String[]> information = new ArrayList();
     ArrayList<Team> teams = new ArrayList<>();
     ArrayList<String[]> txtteams;
@@ -58,7 +97,6 @@ public class secondMainActivity extends AppCompatActivity {
         // Locate MenuItem with ShareActionProvider
         MenuItem item = menu.findItem(R.id.share);
         // Fetch and store ShareActionProvider
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -71,13 +109,20 @@ public class secondMainActivity extends AppCompatActivity {
 
         if (res_id == R.id.share) {
 // code for sharing the schedule
-            ShareActionProvider miShare = (ShareActionProvider) MenuItemCompat.getActionProvider(item); //share via text
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra("android.content.Intent.EXTRA_SUBJECT", "BasketBall Matches");
-            shareIntent.putExtra("android.content.Intent.EXTRA_TEXT",gameSchedule(txtteams) );
-            startActivity(Intent.createChooser(shareIntent,"Share via"));
+            //ShareActionProvider miShare = (ShareActionProvider) MenuItemCompat.getActionProvider(item); //share via text
+//            Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+//            shareIntent.setAction(Intent.ACTION_SEND);
+//            shareIntent.setType("text/plain");
+//            shareIntent.putExtra("android.content.Intent.EXTRA_SUBJECT", "BasketBall Matches");
+//            shareIntent.putExtra("android.content.EXTRA_TEXT","breakfast" );
+//            startActivity(Intent.createChooser(shareIntent,"Share via"));
 
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+//           sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Guess my weight?");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, gameSchedule(txtteams));//TODO arraylist
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
 //        Intent picMessageIntent = new Intent(android.content.Intent.ACTION_SEND);    //this is method to share fotos
 //        picMessageIntent.setType("image/jpeg");
 //        File downloadedPic =  new File("turtle");
@@ -109,7 +154,6 @@ public class secondMainActivity extends AppCompatActivity {
             snackbar.show();
             snackbar.setDuration(10000);
 // Snackbar with Try Again action
-
         } else if (res_id == R.id.settings) {
 
 // Floating Contextual Menu with options
@@ -128,9 +172,8 @@ public class secondMainActivity extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-
         super.onCreateContextMenu(menu, v, menuInfo);
-       // menu.setHeaderTitle("Context Menu");
+        menu.setHeaderTitle("Context Menu");
        // menu.add(0, v.getId(), 0, "Action 1");
       //  menu.add(0, v.getId(), 0, "Action 2");
         MenuInflater menuInflater = getMenuInflater();
@@ -154,29 +197,52 @@ public class secondMainActivity extends AppCompatActivity {
         Toast.makeText(this, "function 2 called", Toast.LENGTH_SHORT).show();
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
+        //db = new DatabaseHandler(this.getApplicationContext());
+        db = new DatabaseHandler(this);
         setTheme(R.style.MyMaterialTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_main);
 
 
+        if (getIntent().getExtras() != null)
+        {
+            string1 = getIntent().getExtras().getString("string1").toString();
+
+            Log.d("fffffffffffffffff",string1);
+            //  TODO: 2017-04-08
+        }
+
         registerForContextMenu((View) findViewById(R.id.button8));
+
+        buttontogallery = (Button) findViewById(R.id.buttontogallery);
+
+        opponent_name_show = (TextView) findViewById(R.id.opponent_team_show);
+        opponent_name_edit = (EditText) findViewById(R.id.opponent_name_edit);
+
+        opponent_name_edit.setText("");
+        if (db.getString()!=null) {
+            opponent_name_show.setText(db.getString());
+        }else             opponent_name_show.setText("jishen");
+
+
+        buttontogallery.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+
+                // Start NewActivity.class
+                Intent myIntent = new Intent(secondMainActivity.this,
+                        GalleryActivity.class);
+                startActivity(myIntent);
+            }
+        });
 
 
       //  2017 03 17
         Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar1);
         toolbar1.setTitle("Notre Dame Atheletics");
-
-
-
-
 
         MyCsvFileReader myCsvFileReader = new MyCsvFileReader(this);
         txtteams = myCsvFileReader.readCsvFile(R.raw.schedule);
@@ -190,25 +256,57 @@ public class secondMainActivity extends AppCompatActivity {
 //        shareIntent.putExtra("android.content.Intent.EXTRA_TEXT","testtexthere" );
 //        startActivity(Intent.createChooser(shareIntent,"Share via"));       //seletion conversation part
 
-        //gameSchedule(txtteams)
+        //gameSchedule(txtteams)//// TODO: 2017-04-08
+
 
         Team floridastate = new Team(txtteams.get(0)[0], txtteams.get(0)[1], txtteams.get(0)[2], txtteams.get(0)[3], txtteams.get(0)[4], txtteams.get(0)[5], txtteams.get(0)[6], txtteams.get(0)[7], txtteams.get(0)[8], txtteams.get(0)[9], txtteams.get(0)[0]);
-        Team northcarolina = new Team(txtteams.get(1)[0], txtteams.get(1)[1], txtteams.get(1)[2], txtteams.get(1)[3], txtteams.get(1)[4], txtteams.get(1)[5], txtteams.get(1)[6], txtteams.get(1)[7], txtteams.get(1)[8], txtteams.get(1)[9], txtteams.get(1)[0]);
+        Team northcarolina = new Team(txtteams.get(1)[0], string1, txtteams.get(1)[2], txtteams.get(1)[3], txtteams.get(1)[4], txtteams.get(1)[5], txtteams.get(1)[6], txtteams.get(1)[7], txtteams.get(1)[8], txtteams.get(1)[9], txtteams.get(1)[0]);
         Team wakeforest = new Team(txtteams.get(2)[0], txtteams.get(2)[1], txtteams.get(2)[2], txtteams.get(2)[3], txtteams.get(2)[4], txtteams.get(2)[5], txtteams.get(2)[6], txtteams.get(2)[7], txtteams.get(2)[8], txtteams.get(2)[9], txtteams.get(2)[0]);
-        Team bostoncollege = new Team(txtteams.get(3)[0], txtteams.get(3)[1], txtteams.get(3)[2], txtteams.get(3)[3], txtteams.get(3)[4], txtteams.get(3)[5], txtteams.get(3)[6], txtteams.get(3)[7], txtteams.get(3)[8], txtteams.get(3)[9], txtteams.get(3)[0]);
-        Team northcarolinastate = new Team(txtteams.get(4)[0], txtteams.get(4)[1], txtteams.get(4)[2], txtteams.get(4)[3], txtteams.get(4)[4], txtteams.get(4)[5], txtteams.get(4)[6], txtteams.get(4)[7], txtteams.get(4)[8], txtteams.get(4)[9], txtteams.get(4)[0]);
-        Team geogiatech = new Team(txtteams.get(5)[0], txtteams.get(5)[1], txtteams.get(5)[2], txtteams.get(5)[3], txtteams.get(5)[4], txtteams.get(5)[5], txtteams.get(5)[6], txtteams.get(5)[7], txtteams.get(5)[8], txtteams.get(5)[9], txtteams.get(5)[0]);
-        Team bostoncollege2 = new Team(txtteams.get(6)[0], txtteams.get(6)[1], txtteams.get(6)[2], txtteams.get(6)[3], txtteams.get(6)[4], txtteams.get(6)[5], txtteams.get(6)[6], txtteams.get(6)[7], txtteams.get(6)[8], txtteams.get(6)[9], txtteams.get(6)[0]);
-        Team louisville = new Team(txtteams.get(7)[0], txtteams.get(7)[1], txtteams.get(7)[2], txtteams.get(7)[3], txtteams.get(7)[4], txtteams.get(7)[5], txtteams.get(7)[6], txtteams.get(7)[7], txtteams.get(7)[8], txtteams.get(7)[9], txtteams.get(7)[0]);
+//        Team bostoncollege = new Team(String1, txtteams.get(3)[1], txtteams.get(3)[2], txtteams.get(3)[3], txtteams.get(3)[4], txtteams.get(3)[5], txtteams.get(3)[6], txtteams.get(3)[7], txtteams.get(3)[8], txtteams.get(3)[9], txtteams.get(3)[0]);
+//        Team northcarolinastate = new Team(txtteams.get(4)[0], txtteams.get(4)[1], txtteams.get(4)[2], txtteams.get(4)[3], txtteams.get(4)[4], txtteams.get(4)[5], txtteams.get(4)[6], txtteams.get(4)[7], txtteams.get(4)[8], txtteams.get(4)[9], txtteams.get(4)[0]);
+//        Team geogiatech = new Team(txtteams.get(5)[0], txtteams.get(5)[1], txtteams.get(5)[2], txtteams.get(5)[3], txtteams.get(5)[4], txtteams.get(5)[5], txtteams.get(5)[6], txtteams.get(5)[7], txtteams.get(5)[8], txtteams.get(5)[9], txtteams.get(5)[0]);
+//        Team bostoncollege2 = new Team(txtteams.get(6)[0], txtteams.get(6)[1], txtteams.get(6)[2], txtteams.get(6)[3], txtteams.get(6)[4], txtteams.get(6)[5], txtteams.get(6)[6], txtteams.get(6)[7], txtteams.get(6)[8], txtteams.get(6)[9], txtteams.get(6)[0]);
+//        Team louisville = new Team(txtteams.get(7)[0], txtteams.get(7)[1], txtteams.get(7)[2], txtteams.get(7)[3], txtteams.get(7)[4], txtteams.get(7)[5], txtteams.get(7)[6], txtteams.get(7)[7], txtteams.get(7)[8], txtteams.get(7)[9], txtteams.get(7)[0]);
+
+
 
         teams.add(northcarolina);
         teams.add(wakeforest);
         teams.add(floridastate);
-        teams.add(bostoncollege);
-        teams.add(northcarolinastate);
-        teams.add(geogiatech);
-        teams.add(bostoncollege2);
-        teams.add(louisville);
+//        teams.add(bostoncollege);
+//        teams.add(northcarolinastate);
+//        teams.add(geogiatech);
+//        teams.add(bostoncollege2);
+//        teams.add(louisville);
+
+
+
+
+        // DatabaseHandler db = new DatabaseHandler(this);     //what is the difference?
+
+        Log.d("insert or delete here","C'est l'equipe");
+     //   Log.d(txtteams.get(0)[3],"chifan");
+
+//        db.addGameContent(new GameContent(txtteams.get(0)[3], txtteams.get(0)[3]));
+//        db.addGameContent(new GameContent("geogiatech", "45Mar"));
+//        db.deleteGameContent(new GameContent(1,"floridastate","22Feb"));
+//        db.deleteGameContent(new GameContent(2,"floridastate","22Feb"));
+
+       // testContent = db.getContact(1);
+
+        Log.d("Reading: ", "Reading all contacts..");
+        Log.d("test","test");
+        //Log.d("Test:",testContent.getGameDate());
+        Log.d("test","test");
+
+        Log.d("Reading: ", "Reading all contacts..");
+        List<GameContent> contacts = db.getAllGameContent();
+
+        for (GameContent cn : contacts) {
+            String log = "Id: " + cn.getID() + " ,Name: " + cn.getName() + " ,Phone: " + cn.getGameDate();
+            // Writing Contacts to log
+            Log.d("Name: ", log);
+        }
 
 //        information.add(new String[] {"northcarolinalogo","North Carolina", "Feb 5","Sunday, February 5, 13:00","Purcell Pavilion at the Joyce Center, Notre Dame, Indiana","Demon Deacons","(14-10)","(18-7)","83-76","Final"});
 //        information.add(new String[] {"wakeforestlogo","Wake Forest", "Feb 7","Tuesday, February 7, 19:00","Greensboro Coliseum, Greensboro, North Carolina","Tar Heels","(21-4)","(17-7)","81-88","Final"});
@@ -220,7 +318,7 @@ public class secondMainActivity extends AppCompatActivity {
 //        information.add(new String[] {"louisvillelogo","Louisville", "March 4","Saturday, March 4, 14:00 on CBS","KFC Yum! Center, Louisville, Kentucky","Cardinals","(22-5)","(21-7)","0-0","Not Start yet"});
 //        information.add(new String[] {"medallogo","ACC Tournament", "March 7"});
 //        information.add(new String[] {"medallogo","ACC Tournament", "March 16"});
-        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this, teams);
+        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this, teams);//
         ListView scheduleListView = (ListView) findViewById(R.id.scheduleListView);
         scheduleListView.setAdapter(scheduleAdapter);
         scheduleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -228,7 +326,7 @@ public class secondMainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 Intent intent = new Intent(secondMainActivity.this, DetailActivity.class);
                 //     String[] aa= information.get(position);
-                Team aa = teams.get(position);
+                Team aa = teams.get(position);//   Modify your onClickListener method to transfer the id of the team/game to the detail activity instead of the object in ArrayList.
                 intent.putExtra("team", aa);
                 startActivity(intent);
             }
@@ -252,14 +350,11 @@ public class secondMainActivity extends AppCompatActivity {
             gameSchedule.append(txtteams.get(i)[2]);
             gameSchedule.append(txtteams.get(i)[3]);
         }
-
-
         // Convert to string.
 //        String result = gameSchedule.toString();
 //
 //        // Print result.
 //        System.out.println(result);
-
         return gameSchedule.toString();
     }
 
