@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 
 public class Team implements Serializable {
+    int teamID;
     String teamLogo;
     String teamName;
     String scheduleText;

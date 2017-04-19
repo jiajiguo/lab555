@@ -154,6 +154,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(KEY_PH_NO, gameContent.getGameDate());
         long ret = db.insert(TABLE_CONTACTS, null, contentValues );
 
+
         if (ret > -1) {
             System.out.println("Successfully inserted");
         } else {
@@ -161,6 +162,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         db.close();
+    }
+
+
+    public ArrayList<GameContent> selectData() {
+        ArrayList<GameContent> teams = new ArrayList<>();
+        String sql = "SELECT * FROM " + TABLE_CONTACTS;
+        Cursor cursor = getReadableDatabase().rawQuery(sql, null);
+        try {
+            cursor.moveToFirst();
+            while (cursor.moveToNext()) {
+                GameContent team = new GameContent();
+                team._id = cursor.getInt(cursor.getColumnIndex("id"));
+                team._name = cursor.getString(cursor.getColumnIndex("name"));
+                team._game_date = cursor.getString(cursor.getColumnIndex("phone_number"));
+
+                teams.add(team);
+
+            }return teams;
+
+
+        }catch (Exception ex) {
+
+        } finally {
+            cursor.close();
+        }
+
+        return new ArrayList<>();
     }
 
     public String getString() {

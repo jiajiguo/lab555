@@ -52,6 +52,8 @@ public class DetailActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private DataBaseHelper dbaider;
+    private Team2 team2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {// throws FileNotFoundException {
@@ -63,7 +65,10 @@ public class DetailActivity extends AppCompatActivity {
         setTheme(R.style.TestTheme2);
         setContentView(R.layout.activity_detail);
 
+        dbaider = new DataBaseHelper(getApplicationContext());
+        int teamId = getIntent().getIntExtra("teamId", 0);
 
+        team2 = dbaider.getDataById(teamId);
         TextView detailText1 = (TextView) findViewById(R.id.detailText1);
         TextView stadiumLocation = (TextView) findViewById(R.id.stadiumLocation);
         TextView opponentTeam = (TextView) findViewById(R.id.opponentTeam);
@@ -116,19 +121,19 @@ public class DetailActivity extends AppCompatActivity {
 
         Team team = (Team) getIntent().getSerializableExtra("team");
 
-        String mDrawableName = team.getTeamLogo();
+        String mDrawableName = team2.getTeamLogo();
         int resID = getResources().getIdentifier(mDrawableName,"drawable",getPackageName());
 
         detailImage1.setImageResource(resID);
 
 
-        stadiumLocation.setText(team.getStadiumLocation());
-        detailText1.setText(team.getDetailText1());
-        opponentTeam.setText(team.getOpponentTeam());
-        opponentRecord.setText(team.getOpponentRecord());
-        irishRecord.setText(team.getIrishRecord());
-        gameScore.setText(team.getGameScore());
-        gameStatus.setText(team.getGameStatus());
+        stadiumLocation.setText(team2.getAddress());
+        detailText1.setText(team2.getAddress());
+        opponentTeam.setText(team2.getSlogan());
+//        opponentRecord.setText(team.getOpponentRecord());
+//        irishRecord.setText(team.getIrishRecord());
+//        gameScore.setText(team.getGameScore());
+//        gameStatus.setText(team.getGameStatus());
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.

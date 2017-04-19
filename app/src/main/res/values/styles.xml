@@ -12,7 +12,7 @@
     <item name="colorPrimary">@color/windowBackground</item>
     <item name="colorPrimaryDark">@color/navigationBarColor</item>
     <item name="colorAccent">@color/colorPrimaryMaterial</item>
-</style>
+    </style>
 
 
     <style name="TestTheme" parent="Theme.AppCompat">

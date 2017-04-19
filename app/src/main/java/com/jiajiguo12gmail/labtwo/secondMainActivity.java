@@ -51,6 +51,8 @@ public class secondMainActivity extends AppCompatActivity {
     EditText opponent_name_edit;
 
     DatabaseHandler db ;
+    DatabaseHandler dbHelper;
+    DataBaseHelper dbaider;
 
 //    public void fn_insert(View view) {
 //        String opponentname = String.valueOf(opponent_name_edit.getText());
@@ -84,6 +86,7 @@ public class secondMainActivity extends AppCompatActivity {
 
     //   ArrayList <String[]> information = new ArrayList();
     ArrayList<Team> teams = new ArrayList<>();
+    ArrayList<Team2> teams2 = new ArrayList<>();
     ArrayList<String[]> txtteams;
 
     //2017 03 17
@@ -180,8 +183,6 @@ public class secondMainActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.floating_contextual_menu, menu);// here write code to inflate floating_contextual_menu xml file
     }
 
-
-
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         if(item.getTitle()=="Action 1"){function1(item.getItemId());}
@@ -238,14 +239,22 @@ public class secondMainActivity extends AppCompatActivity {
             }
         });
 
-
       //  2017 03 17
         Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar1);
         toolbar1.setTitle("Notre Dame Atheletics");
+        dbaider = new DataBaseHelper(getApplicationContext());
+        dbaider.onUpgrade(dbaider.getWritableDatabase(),0,1);
 
         MyCsvFileReader myCsvFileReader = new MyCsvFileReader(this);
         txtteams = myCsvFileReader.readCsvFile(R.raw.schedule);
+
+        ArrayList<String[]> items = myCsvFileReader.readCsvFile(R.raw.hola);
+        Log.d("insert or delete here","C'est l'equipe");
+
+
+
+
 
 
 //2017 03 17 22:30
@@ -258,7 +267,6 @@ public class secondMainActivity extends AppCompatActivity {
 
         //gameSchedule(txtteams)//// TODO: 2017-04-08
 
-
         Team floridastate = new Team(txtteams.get(0)[0], txtteams.get(0)[1], txtteams.get(0)[2], txtteams.get(0)[3], txtteams.get(0)[4], txtteams.get(0)[5], txtteams.get(0)[6], txtteams.get(0)[7], txtteams.get(0)[8], txtteams.get(0)[9], txtteams.get(0)[0]);
         Team northcarolina = new Team(txtteams.get(1)[0], string1, txtteams.get(1)[2], txtteams.get(1)[3], txtteams.get(1)[4], txtteams.get(1)[5], txtteams.get(1)[6], txtteams.get(1)[7], txtteams.get(1)[8], txtteams.get(1)[9], txtteams.get(1)[0]);
         Team wakeforest = new Team(txtteams.get(2)[0], txtteams.get(2)[1], txtteams.get(2)[2], txtteams.get(2)[3], txtteams.get(2)[4], txtteams.get(2)[5], txtteams.get(2)[6], txtteams.get(2)[7], txtteams.get(2)[8], txtteams.get(2)[9], txtteams.get(2)[0]);
@@ -269,7 +277,6 @@ public class secondMainActivity extends AppCompatActivity {
 //        Team louisville = new Team(txtteams.get(7)[0], txtteams.get(7)[1], txtteams.get(7)[2], txtteams.get(7)[3], txtteams.get(7)[4], txtteams.get(7)[5], txtteams.get(7)[6], txtteams.get(7)[7], txtteams.get(7)[8], txtteams.get(7)[9], txtteams.get(7)[0]);
 
 
-
         teams.add(northcarolina);
         teams.add(wakeforest);
         teams.add(floridastate);
@@ -278,8 +285,6 @@ public class secondMainActivity extends AppCompatActivity {
 //        teams.add(geogiatech);
 //        teams.add(bostoncollege2);
 //        teams.add(louisville);
-
-
 
 
         // DatabaseHandler db = new DatabaseHandler(this);     //what is the difference?
@@ -310,34 +315,53 @@ public class secondMainActivity extends AppCompatActivity {
 
 //        information.add(new String[] {"northcarolinalogo","North Carolina", "Feb 5","Sunday, February 5, 13:00","Purcell Pavilion at the Joyce Center, Notre Dame, Indiana","Demon Deacons","(14-10)","(18-7)","83-76","Final"});
 //        information.add(new String[] {"wakeforestlogo","Wake Forest", "Feb 7","Tuesday, February 7, 19:00","Greensboro Coliseum, Greensboro, North Carolina","Tar Heels","(21-4)","(17-7)","81-88","Final"});
-//        information.add(new String[] {"floridastatelogo","Florida State", "Feb 11","Saturday，February 11th, 18:00","Purcell Pavilion at the Joyce Center, Notre Dame, Indiana","Seminoles","(21-5)","(19-7)","72-84","Final"});
-//        information.add(new String[] {"bostoncollegelogo","Bostoncollege", "Feb 14","Tuesday, February 14th, 19:00","Silvio O. Conte Forum, Chestnut Hill, Massachusetts","Eagles","(9-18)","(20-7)","76-84","Final"});
-//        information.add(new String[] {"northcarolinastatelogo","North Carolina State", "Feb 18","Saturday, February 18, 12:00","PNC Arena, Raleigh, North Carolina","Wolfpack","(14-14)","(21-7)","72-81","Final"});
-//        information.add(new String[] {"georgiatechlogo","Georgia Tech", "Feb 26","Sunday, February 26, 18:30 on ESPU","Purcell Pavilion at the Joyce Center, Notre Dame, Indiana","Yellow Jackets","(15-11)","(21-7)","0-0","Not Start yet"});
-//        information.add(new String[] {"bostoncollegelogo","Boston College", "March 1","Wednesday, March 1, 20:00 on ESFC","Purcell Pavilion at the Joyce Center, Notre Dame, Indiana","Eagles","(9-18)","(21-7)","0-0","Not Start yet"});
-//        information.add(new String[] {"louisvillelogo","Louisville", "March 4","Saturday, March 4, 14:00 on CBS","KFC Yum! Center, Louisville, Kentucky","Cardinals","(22-5)","(21-7)","0-0","Not Start yet"});
-//        information.add(new String[] {"medallogo","ACC Tournament", "March 7"});
-//        information.add(new String[] {"medallogo","ACC Tournament", "March 16"});
-        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this, teams);//
+
+//        String[] item2 =  {"floridastatelogo", "Ohio State", "Feb 11", "Purcell Pavilion at the Joyce Center, Notre Dame, Indiana", "Seminoles", "31:41", "31:41", "Not Yet"};
+//        Team2 aaaaa=new Team2(item2);
+//        dbaider.insertData(aaaaa);
+
+
+
+
+
+        MyCsvFileReader reader = new MyCsvFileReader(getApplicationContext());
+        ArrayList<String[]> items2 = reader.readCsvFile(R.raw.schedule2);
+
+        for (String[] item2 : items2) {
+            dbaider.insertData(new Team2(item2));
+//            Log.d(item2[0],item2[1]);
+//            Log.d(item2[2],item2[3]);
+//            Log.d(item2[4],item2[5]);
+//            Log.d(item2[6],item2[7]);
+        }
+
+        teams2 = dbaider.selectData();   //// TODO: 2017-04-17
+
+        ScheduleAdapter2 scheduleAdapter2 = new ScheduleAdapter2(this, teams);//
+
+        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this, R.layout.schedule_item, teams2);//
         ListView scheduleListView = (ListView) findViewById(R.id.scheduleListView);
+
         scheduleListView.setAdapter(scheduleAdapter);
         scheduleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(secondMainActivity.this, DetailActivity.class);
-                //     String[] aa= information.get(position);
-                Team aa = teams.get(position);//   Modify your onClickListener method to transfer the id of the team/game to the detail activity instead of the object in ArrayList.
-                intent.putExtra("team", aa);
+                intent.putExtra("teamId", teams2.get(i).teamId);
                 startActivity(intent);
+
+
+//            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+//                Intent intent = new Intent(secondMainActivity.this, DetailActivity.class);
+//                //     String[] aa= information.get(position);
+//                Team2 aa = teams2.get(position);//   Modify your onClickListener method to transfer the id of the team/game to the detail activity instead of the object in ArrayList.
+//                intent.putExtra("team", aa);
+//                startActivity(intent);
             }
 
         });
 
-
-
     }  // listview part
-
-
 
     @NonNull
     private String gameSchedule(ArrayList<String[]> txtteams) {
@@ -357,9 +381,6 @@ public class secondMainActivity extends AppCompatActivity {
 //        System.out.println(result);
         return gameSchedule.toString();
     }
-
-
-
 
 }
 

@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".secondMainActivity"></activity>
         <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".GalleryActivity"></activity>
 
         <uses-permission android:name="android.permission.CAMERA" />
         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

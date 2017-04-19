@@ -1,0 +1,3 @@
+floridastatelogo, Florida State
+northcarolinalogo, North Carolina
+wakeforestlogo, Wake Forest
